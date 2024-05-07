@@ -1,0 +1,15 @@
+<header>
+    <nav class="navbar navbar-light  test">
+      <span class="navbar-brand mx-auto">Kleiderspenden-Registrierung by Spendenverein Rodgau e.V.</span>
+    </nav>
+    <nav class="navbar navbar-expand-sm navbar-light" mat-tab-nav-bar [tabPanel]="tabPanel">
+      <a mat-tab-link
+         *ngFor="let link of navLinks"
+         [routerLink]="link.path"
+         routerLinkActive #rla="routerLinkActive"
+         [active]="rla.isActive">
+        {{ link.label }}
+      </a>
+    </nav>
+    <mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
+</header>

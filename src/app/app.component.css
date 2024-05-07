@@ -1,0 +1,35 @@
+.clearfix::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.mt {
+  margin-top: 100px;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.container.full-width-height {
+  width: 1000px;
+  height: 100px;
+}
+
+
+.footer {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  margin-top: 20%;
+  background: mediumaquamarine;
+}

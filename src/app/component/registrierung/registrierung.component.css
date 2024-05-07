@@ -1,0 +1,21 @@
+.mat-stepper-vertical {
+  margin-top: 8px;
+}
+
+.mat-mdc-form-field {
+  margin-top: 16px;
+}
+
+.nav-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.nav-full-width {
+  width: 100%;
+}
+
+td {
+  padding-right: 8px;
+}

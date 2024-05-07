@@ -1,0 +1,18 @@
+@if (data.vorname && data.name) {
+  <h2 mat-dialog-title>Danke für deine Spende, {{data.vorname}} {{data.name}}!</h2>
+} @else {
+  <h2 mat-dialog-title>Danke für deine Spende!</h2>
+}
+<mat-dialog-content>
+  <p>Hier sind deine Angaben:</p>
+  <p *ngIf="data.vorname && data.name">{{data.vorname}} {{data.name}}</p>
+  <p *ngIf="data.adresse">{{data.adresse}}</p>
+  <p *ngIf="data.stadt && data.plz">{{data.stadt}}, {{data.plz}}</p>
+  <p *ngIf="data.artKlamotten && data.krisengebiet">{{data.artKlamotten}}, {{data.krisengebiet}}</p>
+  <p>{{datumHeuteAsString}} {{uhrzeit}}, {{data.stadt}}</p>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Ok</button>
+</mat-dialog-actions>
+
+

@@ -1,0 +1,21 @@
+.navbar-brand {
+  font-size: 2em;
+}
+
+@media (max-width: 600px) {
+  .navbar-brand {
+    font-size: 1.0em;
+  }
+}
+
+@media (max-width: 400px) {
+  .navbar-brand {
+    font-size: 0.8em;
+  }
+}
+
+.navbar.navbar-expand-sm.navbar-light {
+  background-color: mediumaquamarine;
+}
+
+

@@ -1,0 +1,162 @@
+<h3>Art der Übergabe</h3>
+<mat-button-toggle-group name="uebergabe" aria-label="uebergabe">
+  <mat-button-toggle-group name="uebergabe" aria-label="uebergabe" value="abholung" [(ngModel)]="uebergabe">
+    <mat-button-toggle [value]="abholung" checked>Abholung</mat-button-toggle>
+    <mat-button-toggle [value]="ort">Übergabe an der Geschäftsstelle</mat-button-toggle>
+  </mat-button-toggle-group>
+</mat-button-toggle-group>
+@if (uebergabe === abholung){
+  <mat-stepper orientation="vertical" [linear]="isLinear" #stepperAbholung>
+    <mat-step [stepControl]="firstFormGroup">
+      <form class="nav-form" [formGroup]="firstFormGroup">
+        <ng-template matStepLabel>Abholadresse eintragen</ng-template>
+          <table class="nav-full-width" cellspacing="0"><tr>
+            <td><mat-form-field class="nav-full-width">
+              <mat-label>Vorname</mat-label>
+              <input matInput #vorname formControlName="firstCtrl" required>
+            </mat-form-field></td>
+            <td><mat-form-field class="nav-full-width">
+              <mat-label>Nachname</mat-label>
+              <input matInput #nachname formControlName="secondCtrl" required>
+            </mat-form-field></td>
+          </tr></table>
+
+          <p>
+            <mat-form-field class="nav-full-width">
+              <mat-label>Adresse</mat-label>
+              <textarea matInput #adresse formControlName="thirdCtrl" required></textarea>
+            </mat-form-field>
+          </p>
+
+          <table class="nav-full-width" cellspacing="0"><tr>
+            <td>
+              <mat-form-field class="nav-full-width">
+                <mat-label>Stadt</mat-label>
+                <input matInput #stadt formControlName="fourthCtrl" required>
+              </mat-form-field>
+            </td>
+            <mat-form-field class="nav-full-width">
+              <mat-label>PLZ</mat-label>
+              <input matInput #postalCode maxlength="5" formControlName="fifthCtrl" required>
+              <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
+              @if (secondFormGroupControls['kleidungsartControl'].hasError('required')) {
+              <mat-error>PLZ nicht in Abholradius!</mat-error>
+            }
+            </mat-form-field>
+          </tr></table>
+
+        <div>
+          <button mat-button matStepperNext>Weiter</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup">
+      <form class="nav-form" [formGroup]="secondFormGroup">
+        <ng-template matStepLabel>Art der Kleidung auswählen</ng-template>
+        <mat-form-field>
+          <mat-label>Art der Kleidung</mat-label>
+          <mat-select formControlName="kleidungsartControl" required (selectionChange)="onKleidungsartSelect($event)">
+            <mat-option>--</mat-option>
+            @for (kleidungsart of kleidungsarten; track kleidungsart) {
+              <mat-option #kleidungsart [value]="kleidungsart">{{kleidungsart}}</mat-option>
+            }
+          </mat-select>
+          @if (secondFormGroupControls['kleidungsartControl'].hasError('required')) {
+            <mat-error>Wähle die Art der Kleidung!</mat-error>
+          }
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Zurück</button>
+          <button mat-button matStepperNext>Weiter</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="thirdFormGroup">
+      <form class="nav-form" [formGroup]="thirdFormGroup">
+        <ng-template matStepLabel>Krisengebiet auswählen</ng-template>
+        <mat-form-field>
+          <mat-label>Krisengebiet</mat-label>
+          <mat-select formControlName="krisengebietControl" required (selectionChange)="onKrisengebietSelect($event)">
+            <mat-option>--</mat-option>
+            @for (krisengebiet of krisengebiete; track krisengebiet) {
+              <mat-option #krisengebiet [value]="krisengebiet">{{krisengebiet}}</mat-option>
+            }
+          </mat-select>
+          @if (thirdFormGroupControls['krisengebietControl'].hasError('required')) {
+            <mat-error>Wähle ein Krisengebiet!</mat-error>
+          }
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Zurück</button>
+          <button mat-button matStepperNext>Weiter</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Abschließen</ng-template>
+      <p *ngIf="this.vorname.value">{{this.vorname.value}} {{this.nachname.value}}</p>
+      <p *ngIf="this.adresse.value">{{this.adresse.value}}</p>
+      <p *ngIf="this.stadt.value && this.postalCode.value">{{this.stadt.value}}, {{this.postalCode.value}}</p>
+      <p *ngIf="secondFormGroupControls['kleidungsartControl'].value && thirdFormGroupControls['krisengebietControl'].value">{{secondFormGroupControls['kleidungsartControl'].value}}, {{thirdFormGroupControls['krisengebietControl'].value}}</p>
+      <div>
+        <button mat-button matStepperPrevious>Zurück</button>
+        <button mat-button (click)="stepperAbholung.reset()">Löschen</button>
+        <button mat-button (click)="registrieren()">Registrieren</button>
+      </div>
+    </mat-step>
+  </mat-stepper>
+} @else if (uebergabe === ort){
+  <mat-stepper orientation="vertical" [linear]="isLinear" #stepperOrt>
+    <mat-step [stepControl]="secondFormGroup">
+      <form class="nav-form" [formGroup]="secondFormGroup">
+        <ng-template matStepLabel>Art der Kleidung auswählen</ng-template>
+        <mat-form-field>
+          <mat-label>Art der Kleidung</mat-label>
+          <mat-select formControlName="kleidungsartControl" required (selectionChange)="onKleidungsartSelect($event)">
+            <mat-option>--</mat-option>
+            @for (kleidungsart of kleidungsarten; track kleidungsart) {
+              <mat-option #kleidungsart [value]="kleidungsart">{{kleidungsart}}</mat-option>
+            }
+          </mat-select>
+          @if (secondFormGroupControls['kleidungsartControl'].hasError('required')) {
+            <mat-error>Wähle die Art der Kleidung!</mat-error>
+          }
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Zurück</button>
+          <button mat-button matStepperNext>Weiter</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="thirdFormGroup">
+      <form class="nav-form" [formGroup]="thirdFormGroup">
+        <ng-template matStepLabel>Krisengebiet auswählen</ng-template>
+        <mat-form-field>
+          <mat-label>Krisengebiet</mat-label>
+          <mat-select formControlName="krisengebietControl" required (selectionChange)="onKrisengebietSelect($event)">
+            <mat-option>--</mat-option>
+            @for (krisengebiet of krisengebiete; track krisengebiet) {
+              <mat-option #krisengebiet [value]="krisengebiet">{{krisengebiet}}</mat-option>
+            }
+          </mat-select>
+          @if (thirdFormGroupControls['krisengebietControl'].hasError('required')) {
+            <mat-error>Wähle ein Krisengebiet!</mat-error>
+          }
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Zurück</button>
+          <button mat-button matStepperNext>Weiter</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Abschließen</ng-template>
+      <p *ngIf="secondFormGroupControls['kleidungsartControl'].value && thirdFormGroupControls['krisengebietControl'].value">{{secondFormGroupControls['kleidungsartControl'].value}}, {{thirdFormGroupControls['krisengebietControl'].value}}</p>
+      <div>
+        <button mat-button matStepperPrevious>Zurück</button>
+        <button mat-button (click)="stepperOrt.reset()">Löschen</button>
+        <button mat-button (click)="registrieren()">Registrieren</button>
+      </div>
+    </mat-step>
+  </mat-stepper>
+}
