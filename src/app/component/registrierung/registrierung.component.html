@@ -1,10 +1,8 @@
 <h3>Art der Übergabe</h3>
-<mat-button-toggle-group name="uebergabe" aria-label="uebergabe">
   <mat-button-toggle-group name="uebergabe" aria-label="uebergabe" value="abholung" [(ngModel)]="uebergabe">
     <mat-button-toggle [value]="abholung" checked>Abholung</mat-button-toggle>
     <mat-button-toggle [value]="ort">Übergabe an der Geschäftsstelle</mat-button-toggle>
   </mat-button-toggle-group>
-</mat-button-toggle-group>
 @if (uebergabe === abholung){
   <mat-stepper orientation="vertical" [linear]="isLinear" #stepperAbholung>
     <mat-step [stepControl]="firstFormGroup">
