@@ -130,6 +130,10 @@ export class RegistrierungComponent implements AfterViewInit{
     });
   }
 
+  get firstFormGroupControls(): { [p: string]: AbstractControl } {
+    return this.firstFormGroup.controls;
+  }
+
   get secondFormGroupControls(): { [p: string]: AbstractControl } {
     return this.secondFormGroup.controls;
   }

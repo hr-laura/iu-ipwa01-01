@@ -37,7 +37,7 @@
               <mat-label>PLZ</mat-label>
               <input matInput #postalCode maxlength="5" formControlName="fifthCtrl" required>
               <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
-              @if (secondFormGroupControls['kleidungsartControl'].hasError('required')) {
+              @if (firstFormGroupControls['fifthCtrl'].hasError('!isPlzNahAnVerein')) {
               <mat-error>PLZ nicht in Abholradius!</mat-error>
             }
             </mat-form-field>
